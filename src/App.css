@@ -1,0 +1,40 @@
+#root {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.title {
+  color: rgb(255, 255, 255);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.top {
+  display: flex;
+  gap: 15px;
+}
+
+.buttonsAtTheEnd {
+  display: flex;
+  gap: 15px;
+}
+
+.movieListWrapper {
+  display: flex;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.movieList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: rgb(255, 255, 255);
+  font-weight: 900;
+  font-size: 15px;
+  justify-content: center;
+}
