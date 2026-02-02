@@ -1,75 +1,82 @@
 import { useState } from "react";
+import MovieItem from "./MovieItem";
 import "./App.css";
 
 function App() {
   const [movies, setMovies] = useState([])
   const [text, setText] = useState("")
-  const [editId, setEditId] = useState(-1)
+  const [showWatched, setShowWatched] = useState(false)
 
   function addMovie() {
     if (text === "") return
 
-    if (editId === -1) {
-      let newMovies = [...movies]
-      newMovies.push(text)
-      setMovies(newMovies)
-    } else {
-      let newMovies = [...movies]
-      newMovies[editId] = text
-      setMovies(newMovies)
-      setEditId(-1)
+    const newMovie = {
+      id: Date.now(),
+      name: text,
+      watched: false,
+      like: null
     }
 
+    setMovies([...movies, newMovie])
     setText("")
   }
 
-  function deleteMovie(index) {
-    let newMovies = []
-
-    for (let i = 0; i < movies.length; i++) {
-      if (i !== index) {
-        newMovies.push(movies[i])
-      }
-    }
-
-    setMovies(newMovies)
+  function deleteMovie(id) {
+    setMovies(movies.filter((movie) => movie.id !== id))
   }
 
-  function editMovie(index) {
-    setText(movies[index])
-    setEditId(index)
+  function toggleWatched(id) {
+    setMovies(
+      movies.map((movie) =>
+        movie.id === id
+          ? { ...movie, watched: !movie.watched, like: null }
+          : movie
+      )
+    )
   }
+
+  function setLike(id, value) {
+    setMovies(
+      movies.map((movie) =>
+        movie.id === id ? { ...movie, like: value } : movie
+      )
+    )
+  }
+
+  const filteredMovies = movies.filter(
+    (movie) => movie.watched === showWatched
+  )
 
   return (
-    <div>
-      <h2 className="title">My Movies</h2>
+    <div className="box">
+      <h2>Фильмы</h2>
 
-      <div className="top">
-        <input
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          placeholder="Movie name"
-        />
+      <input
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        placeholder="Название фильма"
+      />
+      <button onClick={addMovie}>Add</button>
 
-        <button onClick={addMovie}>
-          {editId === -1 ? "Add" : "Edit"}
+      <div className="filter">
+        <button onClick={() => setShowWatched(!showWatched)}>
+          {showWatched
+            ? "Показать не просмотренные"
+            : "Показать просмотренные"}
         </button>
       </div>
 
-      <ul className="movieListWrapper">
-        {movies.map((movie, index) => (
-          <li className="movieList" key={index}>
-            {movie}
-
-            <div className="buttonsAtTheEnd" >
-              <button onClick={() => editMovie(index)}>Edit</button>
-              <button onClick={() => deleteMovie(index)}>Delete</button>
-            </div>
-          </li>
-        ))}
-      </ul>
+      {filteredMovies.map((movie) => (
+        <MovieItem
+          key={movie.id}
+          movie={movie}
+          onDelete={deleteMovie}
+          onToggleWatched={toggleWatched}
+          onLike={setLike}
+        />
+      ))}
     </div>
   )
 }
 
-export default App
+export default App;

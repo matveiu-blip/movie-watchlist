@@ -1,40 +1,54 @@
-#root {
-  margin: 0 auto;
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: #121212;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  color: #ffffff;
+}
+
+.box {
+  width: 360px;
+  background-color: #1e1e1e;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+h2 {
   text-align: center;
+  margin-bottom: 15px;
 }
 
-.title {
-  color: rgb(255, 255, 255);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  border: none;
+  outline: none;
 }
 
-.top {
-  display: flex;
-  gap: 15px;
+button {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: #3a3a3a;
+  color: white;
+  margin-right: 5px;
 }
 
-.buttonsAtTheEnd {
-  display: flex;
-  gap: 15px;
+button:hover {
+  background-color: #555;
 }
 
-.movieListWrapper {
-  display: flex;
-  padding: 0;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.movieList {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  color: rgb(255, 255, 255);
-  font-weight: 900;
-  font-size: 15px;
-  justify-content: center;
+.filter {
+  margin: 10px 0;
+  text-align: center;
 }
